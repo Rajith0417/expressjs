@@ -1,6 +1,12 @@
 const express = require('express')
 const app = express();
-const port = 3000
+const port = 3000;
+const cors = require('cors');
+
+// Enable CORS for all routes or specify specific origins if needed
+app.use(cors({ origin: 'http://localhost:4200' }));
+// Make "public" Folder Publicly Available
+app.use("routes/uploads", express.static("public"));
 
 // app.use(express.static("public"));
 app.use(express.urlencoded({extended: true}));
@@ -13,7 +19,7 @@ app.get('/', (req, res) => {
   //res.send("test");
   //res.status(500);
   //res.json({message: "test"});
-  res.render("index", {text: "blabla bla"});
+  res.render("index", {text: "bla bla"});
 })
 
 // app.listen(port, () => {
@@ -23,5 +29,10 @@ app.get('/', (req, res) => {
 const userRouter = require("./routes/user")
 app.use("/user", userRouter);
 
-app.listen(port);
+const fileUpload = require("./routes/fileUpload")
+app.use("/upload", fileUpload);
+
+app.listen(port, ()=>{
+  console.log(`Sever is running on port ${port}`);
+});
 

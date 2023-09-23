@@ -2,11 +2,14 @@ const { render } = require('ejs');
 const { application } = require('express');
 const express = require('express')
 const router = express.Router();
-const users = [{firstName: "name1"}, {firstName: "name2"}];
+const users = [{firstName: "name1"}, {lastName: "name2"}];
 
 
-router.get("/", (req, res)=>{ 
-    res.send("user route");
+router.get("/test", (req, res)=>{ 
+    console.log("user get");
+    console.log(req.query);
+    // console.log(res.value);
+    res.send("user route test");
 });
 
 router.post("/",(req, res)=>{
